@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testCase failureBehaviour="Continue" guid="4d7566ef-72a8-409a-8588-080d6acd6f6b" id="3">
+  <summary/>
+  <steps>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexConnect" guid="9da4fe59-2b12-4740-be46-54f4be9a4eca" name="ApexConnect" testItemId="76" title="Salesforce Connect: RegressionOrg (Test)">
+      <arguments>
+        <argument id="connectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="resultName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="uiApplicationName">
+          <value class="value" valueClass="string">LightningSales</value>
+        </argument>
+        <argument id="quickUiLogin">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="closeAllPrimaryTabs">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="reuseConnectionName"/>
+        <argument id="alreadyOpenBehaviour">
+          <value class="value" valueClass="string">Reuse</value>
+        </argument>
+        <argument id="privateBrowsingMode"/>
+        <argument id="enableObjectIdLogging">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="autoCleanup">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="cleanupConnectionName"/>
+        <argument id="logFileLocation"/>
+        <argument id="username"/>
+        <argument id="password"/>
+        <argument id="securityToken"/>
+        <argument id="environment"/>
+        <argument id="lightningMode">
+          <value class="value" valueClass="string">default</value>
+        </argument>
+        <argument id="webBrowser"/>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.SetValues" guid="9e8d2900-603b-4b23-a5a4-002c3d47b62b" name="SetValues" testItemId="77" title="Set Values: CaseOrigin">
+      <arguments>
+        <argument id="values">
+          <value class="valueList" mutable="Mutable">
+            <namedValues mutable="Mutable">
+              <namedValue name="valuePath">
+                <value class="value" valueClass="string">CaseOrigin</value>
+              </namedValue>
+              <namedValue name="value">
+                <value class="value" valueClass="string">Phone</value>
+              </namedValue>
+              <namedValue name="valueScope">
+                <value class="value" valueClass="string">Test</value>
+              </namedValue>
+            </namedValues>
+          </value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" guid="45e0d787-3845-4414-9048-4e565dc4defe" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="78" title="Create Object: Case=&gt;CaseId">
+      <arguments>
+        <argument id="objectType">
+          <value class="value" valueClass="string">Case</value>
+        </argument>
+        <argument id="resultIdName">
+          <value class="value" valueClass="string">CaseId</value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="assignmentRuleId"/>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="BusinessHoursId"/>
+        <argument id="Status">
+          <value class="value" valueClass="string">Escalated</value>
+        </argument>
+        <argument id="Origin">
+          <value class="variable">
+            <path element="CaseOrigin"/>
+          </value>
+        </argument>
+        <argument id="Type">
+          <value class="value" valueClass="string">Question</value>
+        </argument>
+      </arguments>
+      <parameterGeneratorProperties>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">RegressionOrg</propertyValue>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Case</propertyValue>
+      </parameterGeneratorProperties>
+      <generatedParameters>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Case&amp;field=BusinessHoursId" name="BusinessHoursId" title="BusinessHoursId"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Case&amp;field=Status" name="Status" title="Status"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Case&amp;field=Origin" name="Origin" title="Origin"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Case&amp;field=Type" name="Type" title="Type"/>
+      </generatedParameters>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.SetValues" guid="38743a28-16b9-4b6d-8109-775166ce18b1" name="SetValues" testItemId="79" title="Set Values: ContactName">
+      <arguments>
+        <argument id="values">
+          <value class="valueList" mutable="Mutable">
+            <namedValues mutable="Mutable">
+              <namedValue name="valuePath">
+                <value class="value" valueClass="string">ContactName</value>
+              </namedValue>
+              <namedValue name="value">
+                <value class="compound">
+                  <parts>
+                    <value valueClass="string">Automation_</value>
+                    <funcCall id="UniqueId">
+                      <argument id="length">
+                        <value class="value" valueClass="decimal">2</value>
+                      </argument>
+                    </funcCall>
+                  </parts>
+                </value>
+              </namedValue>
+              <namedValue name="valueScope">
+                <value class="value" valueClass="string">Test</value>
+              </namedValue>
+            </namedValues>
+          </value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" guid="602893ca-00f8-4179-b7e0-5acedfd2dfd4" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="80" title="Create Object: Account=&gt;AccountId">
+      <arguments>
+        <argument id="objectType">
+          <value class="value" valueClass="string">Account</value>
+        </argument>
+        <argument id="resultIdName">
+          <value class="value" valueClass="string">AccountId</value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="assignmentRuleId"/>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="Name">
+          <value class="compound">
+            <parts>
+              <value valueClass="string">Automation_</value>
+              <funcCall id="UniqueId">
+                <argument id="length">
+                  <value class="value" valueClass="decimal">2</value>
+                </argument>
+              </funcCall>
+            </parts>
+          </value>
+        </argument>
+      </arguments>
+      <parameterGeneratorProperties>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">RegressionOrg</propertyValue>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Account</propertyValue>
+      </parameterGeneratorProperties>
+      <generatedParameters>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Account&amp;field=Name" name="Name" title="Name"/>
+      </generatedParameters>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" guid="ec34d4c7-30f4-4e87-b9ed-1f0c70c5d4ae" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="81" title="Create Object: Contact=&gt;ContactId">
+      <arguments>
+        <argument id="objectType">
+          <value class="value" valueClass="string">Contact</value>
+        </argument>
+        <argument id="resultIdName">
+          <value class="value" valueClass="string">ContactId</value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="assignmentRuleId"/>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="LastName">
+          <value class="variable">
+            <path element="ContactName"/>
+          </value>
+        </argument>
+        <argument id="AccountId">
+          <value class="variable">
+            <path element="AccountId"/>
+          </value>
+        </argument>
+      </arguments>
+      <parameterGeneratorProperties>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">RegressionOrg</propertyValue>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Contact</propertyValue>
+      </parameterGeneratorProperties>
+      <generatedParameters>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Contact&amp;field=LastName" name="LastName" title="LastName"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Contact&amp;field=AccountId" name="AccountId" title="AccountId"/>
+      </generatedParameters>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" guid="9a7e5f1f-76ad-4337-b3b6-dcb299cfc996" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="82" title="Create Object: Task=&gt;TaskId">
+      <arguments>
+        <argument id="objectType">
+          <value class="value" valueClass="string">Task</value>
+        </argument>
+        <argument id="resultIdName">
+          <value class="value" valueClass="string">TaskId</value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="assignmentRuleId"/>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="Subject">
+          <value class="value" valueClass="string">Send Letter</value>
+        </argument>
+        <argument id="WhoId">
+          <value class="variable">
+            <path element="ContactId"/>
+          </value>
+        </argument>
+        <argument id="WhatId">
+          <value class="variable">
+            <path element="CaseId"/>
+          </value>
+        </argument>
+        <argument id="ActivityDate">
+          <value class="funcCall" id="DateAdd">
+            <argument id="date">
+              <value class="variable">
+                <path element="TODAY"/>
+              </value>
+            </argument>
+            <argument id="amount">
+              <value class="value" valueClass="string">-4</value>
+            </argument>
+          </value>
+        </argument>
+        <argument id="Description">
+          <value class="value" valueClass="string">This is Automation Task</value>
+        </argument>
+        <argument id="Status">
+          <value class="value" valueClass="string">Completed</value>
+        </argument>
+        <argument id="Priority">
+          <value class="value" valueClass="string">Normal</value>
+        </argument>
+      </arguments>
+      <parameterGeneratorProperties>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">RegressionOrg</propertyValue>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Task</propertyValue>
+      </parameterGeneratorProperties>
+      <generatedParameters>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=Subject" name="Subject" title="Subject"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=WhoId" name="WhoId" title="WhoId"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=WhatId" name="WhatId" title="WhatId"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=ActivityDate" name="ActivityDate" title="ActivityDate"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=Description" name="Description" title="Description"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=Status" name="Status" title="Status"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Task&amp;field=Priority" name="Priority" title="Priority"/>
+      </generatedParameters>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" guid="3a4b42bf-48e3-4446-8bb8-50954942a774" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="83" title="Create Object: Event=&gt;EventId">
+      <arguments>
+        <argument id="objectType">
+          <value class="value" valueClass="string">Event</value>
+        </argument>
+        <argument id="resultIdName">
+          <value class="value" valueClass="string">EventId</value>
+        </argument>
+        <argument id="apexConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="assignmentRuleId"/>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="WhoId">
+          <value class="variable">
+            <path element="ContactId"/>
+          </value>
+        </argument>
+        <argument id="WhatId">
+          <value class="variable">
+            <path element="CaseId"/>
+          </value>
+        </argument>
+        <argument id="Subject">
+          <value class="value" valueClass="string">Call</value>
+        </argument>
+        <argument id="Location">
+          <value class="value" valueClass="string">Provar</value>
+        </argument>
+        <argument id="StartDateTime">
+          <value class="funcCall" id="DateAdd">
+            <argument id="date">
+              <value class="variable">
+                <path element="NOW"/>
+              </value>
+            </argument>
+            <argument id="amount">
+              <value class="value" valueClass="string">-3</value>
+            </argument>
+          </value>
+        </argument>
+        <argument id="EndDateTime">
+          <value class="funcCall" id="DateAdd">
+            <argument id="date">
+              <value class="variable">
+                <path element="NOW"/>
+              </value>
+            </argument>
+            <argument id="amount">
+              <value class="value" valueClass="string">-2</value>
+            </argument>
+          </value>
+        </argument>
+        <argument id="ShowAs">
+          <value class="value" valueClass="string">Busy</value>
+        </argument>
+        <argument id="Description">
+          <value class="value" valueClass="string">This is an Automation Event</value>
+        </argument>
+      </arguments>
+      <parameterGeneratorProperties>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">RegressionOrg</propertyValue>
+        <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Event</propertyValue>
+      </parameterGeneratorProperties>
+      <generatedParameters>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=WhoId" name="WhoId" title="WhoId"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=WhatId" name="WhatId" title="WhatId"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=Subject" name="Subject" title="Subject"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=Location" name="Location" title="Location"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=StartDateTime" name="StartDateTime" title="StartDateTime"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=EndDateTime" name="EndDateTime" title="EndDateTime"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=ShowAs" name="ShowAs" title="ShowAs"/>
+        <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Event&amp;field=Description" name="Description" title="Description"/>
+      </generatedParameters>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiWithScreen" guid="19c0aba3-58ef-44ae-a521-9fce27c468e1" name="UiWithScreen" testItemId="84" title="On SF Case (Inquiry) View screen">
+      <arguments>
+        <argument id="uiConnectionName">
+          <value class="value" valueClass="string">RegressionOrg</value>
+        </argument>
+        <argument id="target">
+          <value class="uiTarget" uri="sf:ui:target?object=Case&amp;action=View&amp;recordType=Inquiry"/>
+        </argument>
+        <argument id="targetDescription">
+          <value class="value" valueClass="string">On SF Case (Inquiry) View screen</value>
+        </argument>
+        <argument id="navigate">
+          <value class="value" valueClass="string">IfNeccessary</value>
+        </argument>
+        <argument id="windowSelection">
+          <value class="value" valueClass="string">Default</value>
+        </argument>
+        <argument id="windowSize">
+          <value class="value" valueClass="string">Default</value>
+        </argument>
+        <argument id="closeWindow"/>
+        <argument id="captureBefore">
+          <value class="value" valueClass="string">false</value>
+        </argument>
+        <argument id="captureAfter">
+          <value class="value" valueClass="string">false</value>
+        </argument>
+        <argument id="sfUiTargetObjectId">
+          <value class="variable">
+            <path element="CaseId"/>
+          </value>
+        </argument>
+      </arguments>
+      <clauses>
+        <clause name="substeps" testItemId="5">
+          <steps>
+            <apiCall apiId="com.provar.plugins.bundled.apis.control.StepGroup" guid="2409aca2-4cd9-404b-b0c3-1b9f586549b5" name="StepGroup" testItemId="102" title="Column Assertions">
+              <arguments>
+                <argument id="description">
+                  <value class="value" valueClass="string">Column Assertions</value>
+                </argument>
+              </arguments>
+              <clauses>
+                <clause name="hidden" testItemId="103">
+                  <steps>
+                    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="c941209a-2565-4047-a393-787c3f358757" name="UiAssert" testItemId="96" title="UI Assert">
+                      <arguments>
+                        <argument id="resultName">
+                          <value class="value" valueClass="string">Values</value>
+                        </argument>
+                        <argument id="resultScope">
+                          <value class="value" valueClass="string">Test</value>
+                        </argument>
+                        <argument id="columnAssertions">
+                          <value class="valueList" mutable="Mutable">
+                            <uiColumnAssertion resultName="TASK_SUBJECT">
+                              <fieldLocator uri="ui:locator?name=TASK_SUBJECT&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.SUBJECT%26relationship%3DActivityHistories"/>
+                              <attributeAssertions>
+                                <uiAttributeAssertion attributeName="columnHeaderText" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="string">Subject</value>
+                                </uiAttributeAssertion>
+                                <uiAttributeAssertion attributeName="columnVisible" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="boolean">true</value>
+                                </uiAttributeAssertion>
+                              </attributeAssertions>
+                            </uiColumnAssertion>
+                          </value>
+                        </argument>
+                        <argument id="captureAfter">
+                          <value class="value" valueClass="boolean">false</value>
+                        </argument>
+                        <argument id="fieldAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="pageAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="beforeWait"/>
+                        <argument id="autoRetry"/>
+                      </arguments>
+                    </apiCall>
+                    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="73c1660d-1de3-4d54-9914-d5a74c18a23c" name="UiAssert" testItemId="97" title="UI Assert">
+                      <arguments>
+                        <argument id="resultName">
+                          <value class="value" valueClass="string">Values</value>
+                        </argument>
+                        <argument id="resultScope">
+                          <value class="value" valueClass="string">Test</value>
+                        </argument>
+                        <argument id="columnAssertions">
+                          <value class="valueList" mutable="Mutable">
+                            <uiColumnAssertion resultName="TASK_WHO_NAME">
+                              <fieldLocator uri="ui:locator?name=TASK_WHO_NAME&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.WHO_NAME%26relationship%3DActivityHistories"/>
+                              <attributeAssertions>
+                                <uiAttributeAssertion attributeName="columnHeaderText" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="string">Name</value>
+                                </uiAttributeAssertion>
+                                <uiAttributeAssertion attributeName="columnVisible" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="boolean">true</value>
+                                </uiAttributeAssertion>
+                              </attributeAssertions>
+                            </uiColumnAssertion>
+                          </value>
+                        </argument>
+                        <argument id="captureAfter">
+                          <value class="value" valueClass="boolean">false</value>
+                        </argument>
+                        <argument id="fieldAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="pageAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="beforeWait"/>
+                        <argument id="autoRetry"/>
+                      </arguments>
+                    </apiCall>
+                    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="45aff51a-c31b-442d-afde-46507e9f0737" name="UiAssert" testItemId="98" title="UI Assert">
+                      <arguments>
+                        <argument id="resultName">
+                          <value class="value" valueClass="string">Values</value>
+                        </argument>
+                        <argument id="resultScope">
+                          <value class="value" valueClass="string">Test</value>
+                        </argument>
+                        <argument id="columnAssertions">
+                          <value class="valueList" mutable="Mutable">
+                            <uiColumnAssertion resultName="ACTIVITY_TASK">
+                              <fieldLocator uri="ui:locator?name=ACTIVITY_TASK&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DACTIVITY.TASK%26relationship%3DActivityHistories"/>
+                              <attributeAssertions>
+                                <uiAttributeAssertion attributeName="columnHeaderText" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="string">Task</value>
+                                </uiAttributeAssertion>
+                                <uiAttributeAssertion attributeName="columnVisible" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="boolean">true</value>
+                                </uiAttributeAssertion>
+                              </attributeAssertions>
+                            </uiColumnAssertion>
+                          </value>
+                        </argument>
+                        <argument id="captureAfter">
+                          <value class="value" valueClass="boolean">false</value>
+                        </argument>
+                        <argument id="fieldAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="pageAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="beforeWait"/>
+                        <argument id="autoRetry"/>
+                      </arguments>
+                    </apiCall>
+                    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="74bb3c79-ce2d-4ad5-9148-20c4649c7a37" name="UiAssert" testItemId="99" title="UI Assert">
+                      <arguments>
+                        <argument id="resultName">
+                          <value class="value" valueClass="string">Values</value>
+                        </argument>
+                        <argument id="resultScope">
+                          <value class="value" valueClass="string">Test</value>
+                        </argument>
+                        <argument id="columnAssertions">
+                          <value class="valueList" mutable="Mutable">
+                            <uiColumnAssertion resultName="TASK_DUE_DATE">
+                              <fieldLocator uri="ui:locator?name=TASK_DUE_DATE&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.DUE_DATE%26relationship%3DActivityHistories"/>
+                              <attributeAssertions>
+                                <uiAttributeAssertion attributeName="columnHeaderText" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="string">Due Date</value>
+                                </uiAttributeAssertion>
+                                <uiAttributeAssertion attributeName="columnVisible" comparisonType="EqualTo" normalize="true">
+                                  <value class="value" valueClass="boolean">true</value>
+                                </uiAttributeAssertion>
+                              </attributeAssertions>
+                            </uiColumnAssertion>
+                          </value>
+                        </argument>
+                        <argument id="captureAfter">
+                          <value class="value" valueClass="boolean">false</value>
+                        </argument>
+                        <argument id="fieldAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="pageAssertions">
+                          <value class="valueList" mutable="Mutable"/>
+                        </argument>
+                        <argument id="beforeWait"/>
+                        <argument id="autoRetry"/>
+                      </arguments>
+                    </apiCall>
+                  </steps>
+                </clause>
+              </clauses>
+            </apiCall>
+            <apiCall apiId="com.provar.plugins.bundled.apis.control.StepGroup" guid="f9976abc-6eca-47f6-a3f8-dfd891e893cb" name="StepGroup" testItemId="110" title="Value Assertions">
+              <arguments>
+                <argument id="description">
+                  <value class="value" valueClass="string">Value Assertions</value>
+                </argument>
+              </arguments>
+              <clauses>
+                <clause name="hidden" testItemId="111">
+                  <steps>
+                    <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiWithRow" guid="3008a643-30ad-4433-8e0b-ff054244d4d8" name="UiWithRow" testItemId="89" title="With ActivityHistories rows {TASK_SUBJECT = &quot;Call&quot;}">
+                      <arguments>
+                        <argument id="uiConnectionName">
+                          <value class="value" valueClass="string">RegressionOrg</value>
+                        </argument>
+                        <argument id="locator">
+                          <value class="uiLocator" uri="sf:ui:locator:row?table=View%2FActivityHistories%2FActivityHistoriesTable"/>
+                        </argument>
+                        <argument id="uiRowLocator">
+                          <value class="eq">
+                            <lhs class="variable">
+                              <path element="TASK_SUBJECT"/>
+                            </lhs>
+                            <rhs class="value" valueClass="string">Call</rhs>
+                          </value>
+                        </argument>
+                        <argument id="locatorDescription">
+                          <value class="value" valueClass="string">With ActivityHistories rows {TASK_SUBJECT = "Call"}</value>
+                        </argument>
+                        <argument id="failIfNotFound">
+                          <value class="value" valueClass="boolean">true</value>
+                        </argument>
+                        <argument id="debugRowLocator"/>
+                        <argument id="resultName">
+                          <value class="value" valueClass="string">Row</value>
+                        </argument>
+                        <argument id="resultScope">
+                          <value class="value" valueClass="string">Local</value>
+                        </argument>
+                        <argument id="autoPaginate"/>
+                      </arguments>
+                      <clauses>
+                        <clause name="substeps" testItemId="90">
+                          <steps>
+                            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="006a003b-00b2-4cfb-afbb-d6b5b24ffee0" name="UiAssert" testItemId="112" title="UI Assert">
+                              <arguments>
+                                <argument id="resultName">
+                                  <value class="value" valueClass="string">Values</value>
+                                </argument>
+                                <argument id="resultScope">
+                                  <value class="value" valueClass="string">Test</value>
+                                </argument>
+                                <argument id="fieldAssertions">
+                                  <value class="valueList" mutable="Mutable">
+                                    <uiFieldAssertion resultName="TASK_SUBJECT">
+                                      <fieldLocator uri="ui:locator?name=TASK_SUBJECT&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.SUBJECT%26relationship%3DActivityHistories"/>
+                                      <attributeAssertions>
+                                        <uiAttributeAssertion attributeName="value" comparisonType="EqualTo" normalize="true">
+                                          <value class="value" valueClass="string">Call</value>
+                                        </uiAttributeAssertion>
+                                      </attributeAssertions>
+                                    </uiFieldAssertion>
+                                  </value>
+                                </argument>
+                                <argument id="captureAfter">
+                                  <value class="value" valueClass="boolean">false</value>
+                                </argument>
+                                <argument id="columnAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="pageAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="beforeWait"/>
+                                <argument id="autoRetry"/>
+                              </arguments>
+                            </apiCall>
+                            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="1911c390-79a0-494b-9f0b-4e7423226e47" name="UiAssert" testItemId="113" title="UI Assert">
+                              <arguments>
+                                <argument id="resultName">
+                                  <value class="value" valueClass="string">Values</value>
+                                </argument>
+                                <argument id="resultScope">
+                                  <value class="value" valueClass="string">Test</value>
+                                </argument>
+                                <argument id="fieldAssertions">
+                                  <value class="valueList" mutable="Mutable">
+                                    <uiFieldAssertion resultName="TASK_WHO_NAME">
+                                      <fieldLocator uri="ui:locator?name=TASK_WHO_NAME&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.WHO_NAME%26relationship%3DActivityHistories"/>
+                                      <attributeAssertions>
+                                        <uiAttributeAssertion attributeName="value" comparisonType="EqualTo" normalize="true">
+                                          <value class="variable">
+                                            <path element="ContactName"/>
+                                          </value>
+                                        </uiAttributeAssertion>
+                                      </attributeAssertions>
+                                    </uiFieldAssertion>
+                                  </value>
+                                </argument>
+                                <argument id="captureAfter">
+                                  <value class="value" valueClass="boolean">false</value>
+                                </argument>
+                                <argument id="columnAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="pageAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="beforeWait"/>
+                                <argument id="autoRetry"/>
+                              </arguments>
+                            </apiCall>
+                            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="6ec1bd05-9d71-4c22-a339-7f8a53be8ab2" name="UiAssert" testItemId="91" title="UI Assert">
+                              <arguments>
+                                <argument id="resultName">
+                                  <value class="value" valueClass="string">Values</value>
+                                </argument>
+                                <argument id="resultScope">
+                                  <value class="value" valueClass="string">Test</value>
+                                </argument>
+                                <argument id="fieldAssertions">
+                                  <value class="valueList" mutable="Mutable">
+                                    <uiFieldAssertion resultName="ACTIVITY_TASK">
+                                      <fieldLocator uri="ui:locator?name=ACTIVITY_TASK&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DACTIVITY.TASK%26relationship%3DActivityHistories"/>
+                                      <attributeAssertions>
+                                        <uiAttributeAssertion attributeName="value" comparisonType="EqualTo" normalize="true">
+                                          <value class="value" valueClass="string">false</value>
+                                        </uiAttributeAssertion>
+                                      </attributeAssertions>
+                                    </uiFieldAssertion>
+                                  </value>
+                                </argument>
+                                <argument id="captureAfter">
+                                  <value class="value" valueClass="boolean">false</value>
+                                </argument>
+                                <argument id="columnAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="pageAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="beforeWait"/>
+                                <argument id="autoRetry"/>
+                              </arguments>
+                            </apiCall>
+                            <apiCall apiId="com.provar.plugins.forcedotcom.core.ui.UiAssert" guid="794f2240-e03e-459d-a92f-ae7ebd0f44c7" name="UiAssert" testItemId="92" title="UI Assert">
+                              <arguments>
+                                <argument id="resultName">
+                                  <value class="value" valueClass="string">Values</value>
+                                </argument>
+                                <argument id="resultScope">
+                                  <value class="value" valueClass="string">Test</value>
+                                </argument>
+                                <argument id="fieldAssertions">
+                                  <value class="valueList" mutable="Mutable">
+                                    <uiFieldAssertion resultName="TASK_DUE_DATE">
+                                      <fieldLocator uri="ui:locator?name=TASK_DUE_DATE&amp;binding=sf%3Aui%3Abinding%3Aobject%3Fobject%3DCase%26field%3DTASK.DUE_DATE%26relationship%3DActivityHistories"/>
+                                      <attributeAssertions>
+                                        <uiAttributeAssertion attributeName="value" comparisonType="Contains" normalize="true">
+                                          <value class="funcCall" id="DateFormat">
+                                            <argument id="date">
+                                              <value class="funcCall" id="DateAdd">
+                                                <argument id="date">
+                                                  <value class="variable">
+                                                    <path element="NOW"/>
+                                                  </value>
+                                                </argument>
+                                                <argument id="amount">
+                                                  <value class="value" valueClass="string">-3</value>
+                                                </argument>
+                                              </value>
+                                            </argument>
+                                            <argument id="outputFormat">
+                                              <value class="value" valueClass="string">dd/MM/yyyy</value>
+                                            </argument>
+                                          </value>
+                                        </uiAttributeAssertion>
+                                      </attributeAssertions>
+                                    </uiFieldAssertion>
+                                  </value>
+                                </argument>
+                                <argument id="captureAfter">
+                                  <value class="value" valueClass="boolean">false</value>
+                                </argument>
+                                <argument id="columnAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="pageAssertions">
+                                  <value class="valueList" mutable="Mutable"/>
+                                </argument>
+                                <argument id="beforeWait"/>
+                                <argument id="autoRetry"/>
+                              </arguments>
+                            </apiCall>
+                          </steps>
+                        </clause>
+                      </clauses>
+                      <generatedParameters>
+                        <apiParam group="options" name="autoPaginate" title="Auto Paginate">
+                          <summary>Whether Show More/Next is clicked till the match condition succeeds.</summary>
+                          <type>
+                            <booleanType/>
+                          </type>
+                        </apiParam>
+                      </generatedParameters>
+                    </apiCall>
+                  </steps>
+                </clause>
+              </clauses>
+            </apiCall>
+          </steps>
+        </clause>
+      </clauses>
+      <generatedParameters>
+        <apiParam group="target" name="sfUiTargetObjectId" title="Object Id">
+          <summary>The Id of the SF Object to be Viewed or Edited.</summary>
+          <type>
+            <textType/>
+          </type>
+        </apiParam>
+      </generatedParameters>
+    </apiCall>
+  </steps>
+  <tagReferences>
+    <tagRef tagName="Suparna" tagTypeName="maintainer"/>
+  </tagReferences>
+</testCase>

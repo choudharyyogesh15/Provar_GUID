@@ -1,0 +1,68 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="C:/Program Files/Provar/"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_LightningConsole/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			testEnvironment="Lightning" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen"  
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/04 - Lightning Console"></fileset>
+			<!--fileset id="testcases" dir="../tests/Regression/Lightning Console/Standard/Close Window"><include name="Close New Screen.testcase"/></fileset-->
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Automation Revamp : ${env.version} ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+
+	</target>
+	<target name="SandboxLightning">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="Sandbox_Lightning" 
+					webBrowser="${browser}" 
+					webBrowserConfiguration="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reload" 
+					projectCachePath="../../.provarCaches" 
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/04 - Lightning Console"></fileset>
+			<!--fileset id="testcases" dir="../tests/Regression/Lightning Console/Standard/Close Window"><include name="Close New Screen.testcase"/></fileset-->
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Sandbox Automation Revamp : ${env.version} ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+
+		</target>
+</project>

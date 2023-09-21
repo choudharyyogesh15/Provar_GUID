@@ -1,0 +1,637 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="${env.PROVAR_HOME}"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_Prerelease/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+	<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			testEnvironment="Prerelease-Lightning" 
+							webBrowser="Chrome" 
+							webBrowserConfiguration="Full Screen"
+							webBrowserProviderName="Desktop"
+							webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="false" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Close Window"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion">
+    <include name="Case Edit Field Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion">
+    <include name="Opportunity Edit Field Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Update Record and Page Error">
+    <include name="Edit Record - Contact.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Accounts">
+    <include name="Assertion on Accounts Home LV LC.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Assertion on Cases Home LV- REG-5284.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Buttons on All Cases LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Buttons on Cases Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Contacts"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Assertions on Leads Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Buttons on All Open Leads LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Buttons on Leads Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Opportunities">
+    <include name="Assertion on All Opp LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Opportunities">
+    <include name="Assertion on Opp Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Navigations"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Assertions and Actions - Buttons and Labels"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Contact.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Lead.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Opportunity.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Accounts">
+    <include name="AccountsSetValue.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Accounts">
+    <include name="AccountUiAssert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Cases"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Contact"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts Account_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts Account_Value_and_button_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts_Account_RL_Column_and_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_ColumnAndValueAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_ColumnAndValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_Create_PE_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_InlineEdit_And_LabelAndValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_Actions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_ColumnValue_Assertion_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contact"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_ColumnAndValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_ColumnAndValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_Create_LabelAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_InlineEdit.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_Value_And_Label_Assertion_ViewScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contract_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_ColumnAndColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_ColumnAndColumnValue_Assertion_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Create_and_LabelAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_InlineEdit_And_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Files"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Opportunities"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Orders">
+    <include name="Order_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Orders">
+    <include name="Order_ColumnValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Activity_History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Attachments">
+    <include name="Cases_RL_Attachments_Actions &amp; Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Actions Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Edit_Completed_with_Label_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_New_Completed_with_Label_Column_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Files">
+    <include name="Cases File Actions Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Open_Activities"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Extra_Buttons.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Value Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_ViewAll_Value Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Assets"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ActionsRowCount_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ActionsRowCount_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ValuesColumn_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Buttons_And_RowCount_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Column_And_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column ValueAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column Value_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Cases"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_File"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_NotesAttachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Opportunity"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Campaign_history"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_ColumnValueAssertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Column_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Row_Count.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_Upload_File.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_RowCount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_RowCount_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Files"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Invoice_Statements"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Notes and Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Page_And_Field_Error_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Stage History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View Check Integration Status Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View Enable As Partner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View View Account Hierarchy Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View View Website Button-REG-4657.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Cases View Buttons Action">
+    <include name="Case View Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Cases View Buttons Action">
+    <include name="Case View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action">
+    <include name="Contact View Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action">
+    <include name="Contact View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Label Assertion">
+    <include name="Contact Label- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Label Assertion">
+    <include name="Opportunity Lables - UI Assert.testcase" />
+</fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Prerelease Lightning Console Provar test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeAllFailuresInSummary="false" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="True" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+
+	</target>
+
+
+	<target name="LogOnAs">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			testEnvironment="LogOnAs_PreReleaseLightning" 
+							webBrowser="Chrome" 
+							webBrowserConfiguration="Full Screen"
+							webBrowserProviderName="Desktop"
+							webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="false" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Close Window"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion">
+    <include name="Case Edit Field Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion">
+    <include name="Opportunity Edit Field Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Update Record and Page Error">
+    <include name="Edit Record - Contact.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Accounts">
+    <include name="Assertion on Accounts Home LV LC.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Assertion on Cases Home LV- REG-5284.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Buttons on All Cases LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases">
+    <include name="Buttons on Cases Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Contacts"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Assertions on Leads Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Buttons on All Open Leads LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads">
+    <include name="Buttons on Leads Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Opportunities">
+    <include name="Assertion on All Opp LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Opportunities">
+    <include name="Assertion on Opp Home LV.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Navigations"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Assertions and Actions - Buttons and Labels"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Contact.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Lead.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion">
+    <include name="Opportunity.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Accounts">
+    <include name="AccountsSetValue.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Accounts">
+    <include name="AccountUiAssert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Cases"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Contact"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts Account_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts Account_Value_and_button_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts">
+    <include name="Accounts_Account_RL_Column_and_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_ColumnAndValueAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_ColumnAndValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_Create_PE_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets">
+    <include name="Accounts Asset_InlineEdit_And_LabelAndValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_Actions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Cases">
+    <include name="Accounts Case_ColumnValue_Assertion_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contact"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_ColumnAndValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_ColumnAndValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_Create_LabelAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_InlineEdit.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contracts_Value_And_Label_Assertion_ViewScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts">
+    <include name="Accounts Contract_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Clone_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_ColumnAndColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_ColumnAndColumnValue_Assertion_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_Create_and_LabelAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs">
+    <include name="Accounts CustomObjs_InlineEdit_And_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Files"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Opportunities"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Orders">
+    <include name="Order_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Orders">
+    <include name="Order_ColumnValue_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Activity_History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Attachments">
+    <include name="Cases_RL_Attachments_Actions &amp; Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Actions Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Edit_Completed_with_Label_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_New_Completed_with_Label_Column_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Case_History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Files">
+    <include name="Cases File Actions Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Open_Activities"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Extra_Buttons.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Value Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_ViewAll_Value Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Assets"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ActionsRowCount_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ActionsRowCount_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_ValuesColumn_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Buttons_And_RowCount_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Column_And_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column ValueAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column Value_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Cases"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_File"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_NotesAttachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Opportunity"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Campaign_history"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Buttons_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_ColumnValueAssertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Column_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_File_Row_Count.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files">
+    <include name="Leads_Upload_File.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_ColumnValue_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_RowCount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History">
+    <include name="Leads_LeadHistory_RowCount_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Files"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Invoice_Statements"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Notes and Attachments"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Page_And_Field_Error_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Stage History"></fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View Check Integration Status Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View Enable As Partner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View View Account Hierarchy Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action">
+    <include name="Account View View Website Button-REG-4657.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Cases View Buttons Action">
+    <include name="Case View Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Cases View Buttons Action">
+    <include name="Case View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action">
+    <include name="Contact View Change Owner Button and Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action">
+    <include name="Contact View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Label Assertion">
+    <include name="Contact Label- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Label Assertion">
+    <include name="Opportunity Lables - UI Assert.testcase" />
+</fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="LogOnAs Prerelease Lightning Console Provar test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeAllFailuresInSummary="false" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="True" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+
+	</target>
+
+</project>

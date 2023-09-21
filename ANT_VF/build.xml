@@ -1,0 +1,108 @@
+<project default="runtests">
+	<property environment="env"/>
+		<property name="provar.home" value="C:/Program Files/Provar"/>
+		<property name="testproject.home" value=".."/>
+		<property name="testproject.results" value="../ANT_VF/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+		<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+		<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+		<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+		<!--loadfile property="version" srcfile="${env.PROVAR_HOME}\version.txt"/-->
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reuse" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/06 - VisualForce"></fileset>
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="false"/>
+						<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+					
+		</Run-Test-Case>
+
+	</target>
+	<target name="Lightning">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="${envr}" 
+					webBrowser="${browser}" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reuse" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/06 - VisualForce"></fileset>
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} ${envr} ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="false"/>
+							<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+						
+			</Run-Test-Case>
+
+		</target>
+	<target name="SandboxLightning">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="Sandbox_Lightning" 
+					webBrowser="${browser}" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reuse" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/06 - VisualForce"></fileset>
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} Sandbox VF ${browser} test run report" attachExecutionReport="true" attachZip="false"/>
+							<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+						
+			</Run-Test-Case>
+
+		</target>
+</project>

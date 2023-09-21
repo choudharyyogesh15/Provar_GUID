@@ -1,0 +1,70 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="C:/Program Files/Provar/"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_ClassicSales/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			        testEnvironment="" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/01 - Classic Sales"></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Automation Revamp : Classic Sales" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeAllFailuresInSummary="true" includeBdd="false" includeTestCasePathHierarchy="true" includeTestCaseShowSummary="true" includeBasicLogs="false" includeDetailLogs="false" includeDiagnosticTrace="true" includeTestStepTime="true" includeNoScreenshot="false" includeScreenshotThumbnail="false" includeFullScreenShot="true"/>
+							</Run-Test-Case>
+
+	</target>
+	<target name="Sandbox">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			        testEnvironment="Sandbox" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/01 - Classic Sales"></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Sandbox Automation Revamp : Classic Sales" attachExecutionReport="true" attachZip="true"/>
+						<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+					</Run-Test-Case>
+
+	</target>
+</project>

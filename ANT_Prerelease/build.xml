@@ -1,0 +1,714 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="${env.PROVAR_HOME}"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_Prerelease/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+	<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="Prerelease-Lightning" 
+				webBrowser="Chrome" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="false" 
+				salesforceMetadataCache="Reuse" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Auto Cleanup"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Close Window"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Error Assertions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Label Assertions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Set Interactions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Case Edit Field Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Opportunity Edit Field Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Accounts"><include name="Assertion on Accounts Home LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Assertion on Cases Home LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Buttons on All Cases LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Buttons on Cases Home LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Contacts"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Assertions on Leads Home LV-REG-5284.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Buttons on All Open Leads LV.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Buttons on Leads Home LV.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Opportunities"><include name="Assertion on All Opp LV.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Opportunities"><include name="Assertion on Opp Home LV.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/New/Error Assertions"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/New/Label Assertions"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/New/Set Interactions"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Private Browsing Mode"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Accounts"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Cases"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Contact"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Accounts"><include name="Accounts Account_ViewAll_ColAssertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/AccountTeam"><include name="Accounts AccountTeam_AddAccount&amp;DefaultTeam_Create_&amp;_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Clone_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Column_Assertion &amp;_Columm_Value_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Column_Assertion_&amp;_Columm_Value_Assertion_ViewAll_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Edit.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Edit_Label_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_FieldValue_Assertion_ViewScreen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Inline_Edit.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_LabelAssertion_ViewScreen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_New_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_New_Screen_Label_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Page_And_Field_Error_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Cases"><include name="Case_ColumnAssertion&amp; Columm_Value_Assertion_ViewAllScreen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Column&amp;Value_Assertion_ViewAll.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Column_&amp;_Value_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Edit_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Label_Assertion_EditScreen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Label_Assertion_NewScreen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Page_Error_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_Action&amp;RowCount_Button.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_Action_&amp;_Row_Count_ViewAll_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_NewScreen_LabelAssertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_New_Screen.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Notes &amp; Attachments"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Opportunities"></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Orders"><include name="Order_Column_&amp;_Value_Assertion.testcase"/></fileset>
+		<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Orders">
+    <include name="Order_Column_&amp;_Value_Assertion_ViewAll_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Activity_History"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Attachments">
+    <include name="Cases_RL_Attachments_Actions &amp; Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Actions &amp; Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Edit_Completed_with_Label_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_Errors_on_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+    <include name="Cases_RL_Case_Comments_New_Completed_with_Label_Column_Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_History"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Files">
+    <include name="Cases File Actions &amp; Rowcount.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Open_Activities"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Extra_Buttons.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_Value &amp; Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+    <include name="Cases_RL_RelatedCases_ViewAll_Value &amp; Column Assertions.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Assets"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Notes&amp;Attachments"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_Actions&amp;RowCount_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_Actions&amp;RowCount_Assertion_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+    <include name="Contact_RL_Quotes_Values&amp;Column_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Column&amp;Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Account">
+    <include name="Account_Column&amp;Value_Assertion_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column&amp;ValueAssertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_Column&amp;ValueAssertion_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+    <include name="Contact_RL_CampaignHistory_New_ViewAllScreen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Cases"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_File"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Opportunity"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Campaign_history"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Files"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Lead_History"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Files"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+    <include name="Action &amp; Rowcount ViewAll Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+    <include name="Column &amp; Value Assertion ViewAll Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+    <include name="Column &amp; Value_Assertion_View_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+    <include name="Invoice_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Notes &amp; Attachments"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Product">
+    <include name="Pricebook-New, View &amp; Edit.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Edit_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_New_Screen_Label_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+    <include name="Quotes_Page_And_Field_Error_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Stage History">
+    <include name="Stage_History_Column_Value_Assertion.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Stage History">
+    <include name="Stage_History_Value_Assertion_ViewAll.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+    <include name="Account View Buttons - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+    <include name="Case View Buttons - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+    <include name="Leads View Buttons - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+    <include name="Opportunity View Buttons - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View Change Owner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View Change Owner Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View Check Integration Status Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View Edit Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View Enable As Partner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View View Account Hierarchy Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+    <include name="Account View View Website Button-REG-5241.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+    <include name="Case View Change Owner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+    <include name="Case View Change Owner Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+    <include name="Case View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+    <include name="Case View Edit Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+    <include name="Contact View Change Owner Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+    <include name="Contact View Change Owner Symbol.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+    <include name="Contact View Clone Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+    <include name="Contact View Edit Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Leads View Buttons Action">
+    <include name="Lead View Edit Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Opportunity View Buttons Action">
+    <include name="Opportunity View Edit Button.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Accounts Custom Link Actions"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Contacts Custom Link Actions"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Leads Custom Link Actions"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+    <include name="Account View Custom Links Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+    <include name="Contact View Custom Links Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+    <include name="Lead View Custom Links Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Address Fields"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Checkbox"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Currency Field"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/DateField"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Long Text Area"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Account"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Case">
+    <include name="Account_lookup.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Case">
+    <include name="Contact_lookup.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Contact"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Opportunity"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/MultiPicklist"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Number Fields"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Percentage Field">
+    <include name="Case View Percentage.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Percentage Field">
+    <include name="Opp View Percentage.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Picklist">
+    <include name="Account View Picklist .testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Picklist">
+    <include name="Contact View Picklist.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+    <include name="Account View Text field.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+    <include name="Case View Text field.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+    <include name="Contact View Text field.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+    <include name="Lead View Text field.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/URL Fields"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+    <include name="Account Label- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+    <include name="Contact Label- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+    <include name="Opportunity Lables - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Checkbox Assertion">
+    <include name="Account View Checkbox.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Checkbox Assertion">
+    <include name="Case View Checkbox.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Date Field Assertion">
+    <include name="Case View TestDate.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Date Field Assertion">
+    <include name="Contact Birthdate- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Label Assertion">
+    <include name="Contact Label- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Label Assertion">
+    <include name="Opportunity Lables - UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Lookup Filed Assertion"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/MultiSelect Assertion"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+    <include name="Account Picklist- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+    <include name="Contact Picklist- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+    <include name="Leads Picklist- UI Assert.testcase" />
+</fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Rich Text Area Assertion"></fileset>
+<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/URL Field Assertion"></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Prerelease Lightning Sales Report" attachExecutionReport="true" attachZip="true"/>
+										<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+									</Run-Test-Case>
+
+	</target>
+	
+	
+	
+	<target name="LogOnAs">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="LogOnAs_PreReleaseLightning" 
+					webBrowser="Chrome" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="false" 
+					salesforceMetadataCache="Reuse" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Auto Cleanup"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Close Window"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Error Assertions"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Label Assertions"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Set Interactions"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Case Edit Field Assertion.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Opportunity Edit Field Assertion.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Accounts"><include name="Assertion on Accounts Home LV.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Assertion on Cases Home LV.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Buttons on All Cases LV.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Buttons on Cases Home LV.testcase"/></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Contacts"></fileset>
+				<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Assertions on Leads Home LV-REG-5284.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Buttons on All Open Leads LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Leads"><include name="Buttons on Leads Home LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Opportunities"><include name="Assertion on All Opp LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Opportunities"><include name="Assertion on Opp Home LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/New/Error Assertions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/New/Label Assertions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/New/Set Interactions"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Private Browsing Mode"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Accounts"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Cases"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Contact"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Accounts"><include name="Accounts Account_ViewAll_ColAssertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/AccountTeam"><include name="Accounts AccountTeam_AddAccount&amp;DefaultTeam_Create_&amp;_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Clone_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Column_Assertion &amp;_Columm_Value_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Column_Assertion_&amp;_Columm_Value_Assertion_ViewAll_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Edit.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Edit_Label_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_FieldValue_Assertion_ViewScreen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Inline_Edit.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_LabelAssertion_ViewScreen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_New_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_New_Screen_Label_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"><include name="Asset_Page_And_Field_Error_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Cases"><include name="Case_ColumnAssertion&amp; Columm_Value_Assertion_ViewAllScreen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Column&amp;Value_Assertion_ViewAll.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Column_&amp;_Value_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Edit_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Label_Assertion_EditScreen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Label_Assertion_NewScreen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"><include name="Contracts_Page_Error_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_Action&amp;RowCount_Button.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_Action_&amp;_Row_Count_ViewAll_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_NewScreen_LabelAssertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"><include name="CustomObjs_New_Screen.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Notes &amp; Attachments"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Opportunities"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Orders"><include name="Order_Column_&amp;_Value_Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Orders">
+	    <include name="Order_Column_&amp;_Value_Assertion_ViewAll_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Activity_History"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Attachments">
+	    <include name="Cases_RL_Attachments_Actions &amp; Rowcount.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+	    <include name="Cases_RL_Case_Comments_Actions &amp; Rowcount.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+	    <include name="Cases_RL_Case_Comments_Edit_Completed_with_Label_Assertions.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+	    <include name="Cases_RL_Case_Comments_Errors_on_Edit_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+	    <include name="Cases_RL_Case_Comments_Errors_on_New_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_Comments">
+	    <include name="Cases_RL_Case_Comments_New_Completed_with_Label_Column_Assertions.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Case_History"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Files">
+	    <include name="Cases File Actions &amp; Rowcount.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Open_Activities"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+	    <include name="Cases_RL_RelatedCases_Extra_Buttons.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+	    <include name="Cases_RL_RelatedCases_Value &amp; Column Assertions.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases">
+	    <include name="Cases_RL_RelatedCases_ViewAll_Value &amp; Column Assertions.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Assets"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Notes&amp;Attachments"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+	    <include name="Contact_RL_Quotes_Actions&amp;RowCount_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+	    <include name="Contact_RL_Quotes_Actions&amp;RowCount_Assertion_ViewAll.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes">
+	    <include name="Contact_RL_Quotes_Values&amp;Column_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Account">
+	    <include name="Account_Column&amp;Value_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Account">
+	    <include name="Account_Column&amp;Value_Assertion_ViewAll.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+	    <include name="Contact_RL_CampaignHistory_Column&amp;ValueAssertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+	    <include name="Contact_RL_CampaignHistory_Column&amp;ValueAssertion_ViewAllScreen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+	    <include name="Contact_RL_CampaignHistory_New.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Campaign_history">
+	    <include name="Contact_RL_CampaignHistory_New_ViewAllScreen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Cases"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_File"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Opportunity"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Campaign_history"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Files"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Lead_History"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Notes &amp; Attachments"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Files"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+	    <include name="Action &amp; Rowcount ViewAll Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+	    <include name="Column &amp; Value Assertion ViewAll Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+	    <include name="Column &amp; Value_Assertion_View_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements">
+	    <include name="Invoice_New_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Notes &amp; Attachments"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Product">
+	    <include name="Pricebook-New, View &amp; Edit.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+	    <include name="Quotes_Edit_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+	    <include name="Quotes_Edit_Screen_Label_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+	    <include name="Quotes_New_Screen.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+	    <include name="Quotes_New_Screen_Label_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Quotes">
+	    <include name="Quotes_Page_And_Field_Error_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Stage History">
+	    <include name="Stage_History_Column_Value_Assertion.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Stage History">
+	    <include name="Stage_History_Value_Assertion_ViewAll.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+	    <include name="Account View Buttons - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+	    <include name="Case View Buttons - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+	    <include name="Leads View Buttons - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions">
+	    <include name="Opportunity View Buttons - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View Change Owner Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View Change Owner Symbol.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View Check Integration Status Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View Edit Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View Enable As Partner Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View View Account Hierarchy Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action">
+	    <include name="Account View View Website Button-REG-5241.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+	    <include name="Case View Change Owner Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+	    <include name="Case View Change Owner Symbol.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+	    <include name="Case View Clone Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action">
+	    <include name="Case View Edit Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+	    <include name="Contact View Change Owner Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+	    <include name="Contact View Change Owner Symbol.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+	    <include name="Contact View Clone Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action">
+	    <include name="Contact View Edit Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Leads View Buttons Action">
+	    <include name="Lead View Edit Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Opportunity View Buttons Action">
+	    <include name="Opportunity View Edit Button.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Accounts Custom Link Actions"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Contacts Custom Link Actions"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Leads Custom Link Actions"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+	    <include name="Account View Custom Links Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+	    <include name="Contact View Custom Links Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions">
+	    <include name="Lead View Custom Links Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Address Fields"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Checkbox"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Currency Field"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/DateField"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Long Text Area"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Account"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Case">
+	    <include name="Account_lookup.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Case">
+	    <include name="Contact_lookup.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Contact"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Opportunity"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/MultiPicklist"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Number Fields"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Percentage Field">
+	    <include name="Case View Percentage.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Percentage Field">
+	    <include name="Opp View Percentage.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Picklist">
+	    <include name="Account View Picklist .testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Picklist">
+	    <include name="Contact View Picklist.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+	    <include name="Account View Text field.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+	    <include name="Case View Text field.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+	    <include name="Contact View Text field.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields">
+	    <include name="Lead View Text field.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/URL Fields"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+	    <include name="Account Label- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+	    <include name="Contact Label- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion">
+	    <include name="Opportunity Lables - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Checkbox Assertion">
+	    <include name="Account View Checkbox.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Checkbox Assertion">
+	    <include name="Case View Checkbox.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Date Field Assertion">
+	    <include name="Case View TestDate.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Date Field Assertion">
+	    <include name="Contact Birthdate- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Label Assertion">
+	    <include name="Contact Label- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Label Assertion">
+	    <include name="Opportunity Lables - UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Lookup Filed Assertion"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/MultiSelect Assertion"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+	    <include name="Account Picklist- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+	    <include name="Contact Picklist- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion">
+	    <include name="Leads Picklist- UI Assert.testcase" />
+	</fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Rich Text Area Assertion"></fileset>
+	<fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/URL Field Assertion"></fileset>
+
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="LogOnAs Prerelease Lightning Sales Report" attachExecutionReport="true" attachZip="true"/>
+											<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+										</Run-Test-Case>
+
+		</target>
+
+</project>

@@ -1,0 +1,97 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="${env.PROVAR_HOME}"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_Flexi/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="${envr}" 
+				webBrowser="${browser}"
+				webBrowserConfiguration="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/07 - QuickActions"></fileset><fileset dir="../tests/Regression/08-Flexi"></fileset><fileset dir="../tests/Regression/09 - UtilityBar"></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} Production ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+
+	</target>
+	<target name="Sandbox">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="${envr}" 
+					webBrowser="${browser}"
+					webBrowserConfiguration="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reload" 
+					projectCachePath="../../.provarCaches" 
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/07 - QuickActions"></fileset><fileset dir="../tests/Regression/08-Flexi"></fileset><fileset dir="../tests/Regression/09 - UtilityBar"></fileset>
+
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} ${envr} ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="true"/>
+				<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+			</Run-Test-Case>
+
+		</target>
+	<target name="BST">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="BST" 
+					webBrowser="${browser}" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reuse" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="BASIC" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/09 - UtilityBar"></fileset><fileset dir="../tests/Regression/08-Flexi"></fileset>
+
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.version} BST ${env.JOB_NAME} ${browser} test run report" attachExecutionReport="true" attachZip="true"/>
+								<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+							</Run-Test-Case>
+
+		</target>
+</project>

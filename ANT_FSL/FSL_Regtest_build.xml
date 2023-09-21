@@ -1,0 +1,208 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="C:/Program Files/Provar/"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_FSL/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+	<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+
+
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+
+	<target name="runtests">
+
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="" 
+				webBrowser="Chrome" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+
+			<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org">
+			</fileset>
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.JOB_NAME} test run report" attachExecutionReport="true" attachZip="false"/>
+			<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+
+		</Run-Test-Case>
+
+	</target>
+	
+	<target name="Sandbox">
+
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="Sandbox" 
+					webBrowser="Chrome" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reload" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+
+				<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Left Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Right Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Tab.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Resource Absence Lightbox(PRO-13272).testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Service Appointment Lightbox.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Assets RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan HistoryRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Home Page.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Work OrderRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours LVs Screens.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Time Slots RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="All Product Requests LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Request History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Request Line Items RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Recently Viewed Service Appointments LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Assigned Resource RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Contract"><include name="Service Contract New.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Contract"><include name="Service Contract View.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource - Service Appointment RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Absence RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Service TerritoryRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Skills RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="All Service Territories LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Member RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="All Work Orders LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Book Appointment_QuickActions.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Candidates_QuickAction.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Emergency_QuickAction.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Navigation and Page Error.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Child Work Order RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Resource Preferences RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Service Appointment RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Skill Requirements RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="All Work Types LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type/Work Type RLs"></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type View Screen.testcase"/></fileset>
+					
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.JOB_NAME} Sandbox test run report" attachExecutionReport="true" attachZip="false"/>
+				<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+
+			</Run-Test-Case>
+
+		</target>
+	<target name="FSL-Monorail">
+
+				<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+
+				<Run-Test-Case provarHome="${provar.home}" 
+						projectPath="${testproject.home}" 
+						resultsPath="${testproject.results}" 
+						resultsPathDisposition="Increment" 
+						testEnvironment="FSL-Monorail" 
+						webBrowser="Chrome" 
+						webBrowserConfiguration="Full Screen"
+						webBrowserProviderName="Desktop"
+						webBrowserDeviceName="Full Screen" 
+						excludeCallableTestCases="true" 
+						salesforceMetadataCache="Reload" 
+						projectCachePath="../../.provarCaches"
+						testOutputlevel="WARNING" 
+						pluginOutputlevel="WARNING"
+						stopTestRunOnError="false"
+						secretsPassword="${secrets.password}"
+						testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+						invokeTestRunMonitor="true"
+						>
+
+					<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org">
+					</fileset>
+					<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.JOB_NAME} Monorail test run report" attachExecutionReport="true" attachZip="false"/>
+					<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+
+				</Run-Test-Case>
+
+			</target>
+	<target name="FSL-BST">
+
+				<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+
+				<Run-Test-Case provarHome="${provar.home}" 
+						projectPath="${testproject.home}" 
+						resultsPath="${testproject.results}" 
+						resultsPathDisposition="Increment" 
+						testEnvironment="FSL-BST" 
+						webBrowser="Chrome" 
+						webBrowserConfiguration="Full Screen"
+						webBrowserProviderName="Desktop"
+						webBrowserDeviceName="Full Screen" 
+						excludeCallableTestCases="true" 
+						salesforceMetadataCache="Reload" 
+						projectCachePath="../../.provarCaches"
+						testOutputlevel="WARNING" 
+						pluginOutputlevel="WARNING"
+						stopTestRunOnError="false"
+						secretsPassword="${secrets.password}"
+						testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+						invokeTestRunMonitor="true"
+						>
+
+					<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Left Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Right Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Field Service Tab.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Resource Absence Lightbox(PRO-13272).testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Service Appointment Lightbox.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Assets RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan HistoryRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Home Page.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Work OrderRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours LVs Screens.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Time Slots RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="All Product Requests LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Request History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Request Line Items RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Recently Viewed Service Appointments LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Assigned Resource RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Contract"><include name="Service Contract New.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Contract"><include name="Service Contract View.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource - Service Appointment RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Absence RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Service TerritoryRL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Skills RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="All Service Territories LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory History RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Member RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="All Work Orders LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Book Appointment_QuickActions.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Candidates_QuickAction.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Emergency_QuickAction.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Navigation and Page Error.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Child Work Order RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Resource Preferences RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Service Appointment RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Skill Requirements RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="All Work Types LV.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type Edit Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type/Work Type RLs"></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type View Screen.testcase"/></fileset>
+					<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="FSL BST test run report" attachExecutionReport="true" attachZip="false"/>
+					<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+
+				</Run-Test-Case>
+
+			</target>
+		
+	<target name="smoke">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="" 
+					webBrowser="Chrome" 
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reload" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+			
+				<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab">
+					<include name="Field Service Left Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Service Appointment Lightbox.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Assets RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Transfers RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Assigned Resource RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Member RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Book Appointment_QuickActions.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Navigation and Page Error.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Line Items RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type New Screen.testcase"/></fileset>
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.JOB_NAME} test run report" attachExecutionReport="true" attachZip="false"/>
+				<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+								
+			</Run-Test-Case>
+
+		</target>
+	<target name="smokeSandbox">
+			
+				<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+			
+				<Run-Test-Case provarHome="${provar.home}" 
+						projectPath="${testproject.home}" 
+						resultsPath="${testproject.results}" 
+						resultsPathDisposition="Increment" 
+						testEnvironment="Sandbox" 
+						webBrowser="Chrome" 
+						webBrowserConfiguration="Full Screen"
+						webBrowserProviderName="Desktop"
+						webBrowserDeviceName="Full Screen" 
+						excludeCallableTestCases="true" 
+						salesforceMetadataCache="Reload" 
+						projectCachePath="../../.provarCaches"
+						testOutputlevel="WARNING" 
+						pluginOutputlevel="WARNING"
+						stopTestRunOnError="false"
+						secretsPassword="${secrets.password}"
+						testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+						invokeTestRunMonitor="true"
+						>
+				
+					<fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab">
+						<include name="Field Service Left Panel.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Field Service Tab"><include name="Service Appointment Lightbox.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Maintenance Plan"><include name="Maintenance Plan Assets RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Operating Hours"><include name="Operating Hours Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request/Product Request RLs"><include name="Product Transfers RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Product Request"><include name="Product Request View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment Assigned Resource RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Appointment"><include name="Service Appointment New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource Home Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Resource"><include name="Service Resource View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory"><include name="Service Territory Member RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Service Territory Member"><include name="Service Territory Member View Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Book Appointment_QuickActions.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Navigation and Page Error.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order"><include name="Work Order New Screen.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Order/Work Order RLs"><include name="Work Order Line Items RL.testcase"/></fileset><fileset dir="../tests/Regression/11 - Field Service Lightning/FSL org/Work Type"><include name="Work Type New Screen.testcase"/></fileset>
+					<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="${env.JOB_NAME} test run report" attachExecutionReport="true" attachZip="false"/>
+					<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+									
+				</Run-Test-Case>
+
+			</target>
+</project>

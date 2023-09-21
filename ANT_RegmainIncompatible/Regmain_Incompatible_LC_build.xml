@@ -1,0 +1,77 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="C:/Program Files/Provar/"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_LightningConsole/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen"  
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases"><include name="Assertion and Buttons on PN1 LV- REG-5284.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Leads"><include name="Assertions and Buttons on Custom LV.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Cases"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Accounts"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Assets"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Contracts"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/CustomObjs"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Files"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Orders"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_ApprovalHistory"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Attachments"><include name="Cases_RL_Attachments_Actions &amp; Rowcountold.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Attachments"><include name="Cases_RL_Attachments_Value Column Assertions.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Files"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contacts_RL_Quotes"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_Account"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_File"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Ad_Groups"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Files"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Google Campaign"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Keywords"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Notes &amp; Attachments"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Search_Phrases"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Text_Ads"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/AdGroups"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Files"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Google Campaign"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Invoice_Statements"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Keyword"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Search Phrase"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/TextAds"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Reports"></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action"><include name="Account View Enable As Partner Button.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action"><include name="Contact View Contact Hierarchy Button.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Leads View Buttons Action"><include name="Lead View Edit Button.testcase"/></fileset>
+			<fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Opportunity View Buttons Action"><include name="Opportunity View Delete Button.testcase"/></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Automation Revamp : Lightning Console - Regmain Incompatible" attachExecutionReport="true" attachZip="true"/>
+						<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+					</Run-Test-Case>
+	</target>
+</project>

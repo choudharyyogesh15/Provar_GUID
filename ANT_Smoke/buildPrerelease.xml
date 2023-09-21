@@ -1,0 +1,206 @@
+<project default="classicSales">
+	<property environment="env"/>
+	<property name="provar.home" value="${env.PROVAR_HOME}"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_Smoke/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+	<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+	
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<target name="AllTests">
+		<parallel threadCount="4">
+			<antcall target="classicSales"/>
+			<antcall target="classicConsole"/>
+				<antcall target="lightningSales"/>
+				<antcall target="lightningConsole"/>
+			 </parallel>
+		</target>
+	<target name="classicSales">
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="${envr}" 
+				webBrowser="${browser}"
+				webBrowserConfiguration="Full Screen"
+				webBrowserProviderName="Desktop"
+				webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reuse" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Field UI-Assertions"><include name="Account Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion"><include name="Case Edit Label Assertion.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Page and Field Error Assertions"><include name="Contact Page  Field Errors.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Update_Record"><include name="Edit_Lead.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/List Views/Cases"><include name="Assertion on Cases Home LV.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/List Views/Contacts"><include name="Buttons on All Contacts LV.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/List Views/Leads"><include name="Assertions on All Open Leads LV.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/List Views/Opportunities"><include name="Buttons on Opp LVs.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/New/Create"><include name="Account New.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/New/Label &amp; Button Assertion"><include name="Case New Label &amp; Button Assertion.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/New/Page and Field Error Assertions"><include name="Leads New Page &amp; Field Error.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/RecordType/Accounts/Change"><include name="AccountChangeRecordType.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/RecordType/Cases/Set"><include name="CasesSetValue.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/RecordType/Contact/UiAssert"><include name="ContactUiAssert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Assets"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Cases/Cases_RL_Open_Activities"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contact_RL_Cases"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Leads/Leads_RL_Files"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Opportunity/Product"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions"><include name="Account View Buttons - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Opportunity View Buttons Action"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/CustomLinks/Custom Link Actions/Contacts Custom Link Actions"></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/CustomLinks/Custom Link Assertions"><include name="Lead View Custom Links Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Address Fields"><include name="Account View Address field.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Checkbox"><include name="Case View Checkbox.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Currency Field"><include name="Account View Currency.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/DateField"><include name="Case View Date.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Long Text Area"><include name="Opp View Long text.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Lookups/Contact"><include name="Contact View Lookup.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/MultiPicklist"><include name="Case View Multi Picklist.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Number Fields"><include name="Account View Number.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Percentage Field"><include name="Case View Percentage.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Picklist"><include name="Contact View Picklist.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Text fields"><include name="Lead View Text field.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/URL Fields"><include name="Case View URL.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Address Field Assertion"><include name="Lead view address field.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Checkbox Assertion"><include name="Case View Checkbox.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Date Field Assertion"><include name="Opportunity view close date.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Label Assertion"><include name="Contact Label- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Lookup Field Assertion"><include name="Account view Lookup.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/MultiSelect Assertion"><include name="Opportunity TestMulti- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Picklist Assertion"><include name="Leads Picklist- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Rich Text Area Assertion"><include name="Case TestMultiText - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/URL Field Assertion"><include name="Account URL- UI Assert.testcase"/></fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/AngularInsideVF"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/ContactInsideVF"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideIframe">
+	<include name="IframeInsideIframe_01_UI.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideIframe">
+	<include name="IframeInsideIframe_02_DataTable.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+	<include name="01_IframeInsideVF.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+	<include name="03_Iframe_inside_Vf_HTMLTable_Assertion.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/NewCaseVFTab"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/TestProvar"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+	<include name="VFInsideVF_01_Create_Case.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+	<include name="VFInsideVF_04_NestedTable.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+	<include name="01_Create Case.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+	<include name="VFOnly_05_PageBlockTable.testcase"/>
+</fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFPdf"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_Community"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_LightningHTML"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_SLDS"></fileset>
+<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_TableScrollbar"></fileset>
+
+			<emailProperties sendEmail="true" primaryRecipients="ravindra.yadav@provartesting.com" ccRecipients="" bccRecipients="" emailSubject="Prerelease Classic Sales:Provar test run report" attachExecutionReport="true" attachZip="false"/>
+			<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		</Run-Test-Case>
+	
+	</target>
+	
+	<target name="classicConsole">
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+					testEnvironment="${envr}" 
+					webBrowser="${browser}"
+					webBrowserConfiguration="Full Screen"
+					webBrowserProviderName="Desktop"
+					webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="true" 
+					salesforceMetadataCache="Reuse" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+				<fileset dir="../tests/Regression/02 - Classic Console/Navigations"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Edit/Edit Screen Button Actions"><include name="Opportunity Edit Buttons.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Edit/Field UI-Assertions"><include name="Leads Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Edit/Label and Button Assertion"><include name="Case Edit Label Assertion.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Edit/Page and Field Error Assertions"><include name="Contact Page &amp; Field Errors.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Edit/Update_Record"><include name="Edit_Account.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/List Views/Accounts"><include name="Assertion on Account Custom LV.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/List Views/Cases"><include name="Assertion on Cases Custom LV.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/List Views/Contacts"><include name="Buttons on All Contact LV.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/List Views/Leads"><include name="Buttons on Lead Custom LV.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/List Views/Opportunities"><include name="Assertion on Recently Viewed Opportunity LV.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/New/Button Actions"><include name="Opportunity New Buttons.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/New/Create"><include name="Lead New.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/New/Label &amp; Button Assertion"><include name="Case New Label &amp; Button Assertion.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/New/Page and Field Error Assertions"><include name="Contact New Page &amp; Field Errors.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/RecordType/Accounts/UiAssert"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/RecordType/Cases/Change"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/RecordType/Contact/Set"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Related Lists/Accounts/Open Activities"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Related Lists/Cases/Files"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Related Lists/Contacts/Contacts_RL_Assets"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Related Lists/Leads/Leads_RL_Keywords"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/Related Lists/Opportunity/AdGroups"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Assertions"><include name="Contact View Buttons - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Clicks/Accounts View Buttons Action"><include name="Account View Change Owner Symbol.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Clicks/Cases View Buttons Action"><include name="Case View Clone Button.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Clicks/Contacts View Buttons Action"><include name="Contact View Contact Hierarchy Button.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Clicks/Leads View Buttons Action"><include name="Lead View Convert Button.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Buttons/Clicks/Opportunity View Buttons Action"><include name="Opportunity View Delete Button -REG-3106.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/CustomLinks/Custom Link Actions/Contacts Custom Link Actions"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/CustomLinks/Custom Link Assertions"><include name="Account View Custom Links Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Address Fields"><include name="Contact View Address field.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Checkbox"><include name="Account View Checkbox.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Currency Field"><include name="Case View Currency.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/DateField"><include name="Opp View Date.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Long Text Area"><include name="Lead View Long text.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Lookups/Account"></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/MultiPicklist"><include name="Opp View Multi Picklist.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Number Fields"><include name="Case View Number.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Percentage Field"><include name="Leads View Percentage.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Picklist"><include name="Opp View Picklist.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/Text fields"><include name="Account View Text field.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/Inline Edit/URL Fields"><include name="Case View URL.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Address Field Assertion"><include name="Contact view address field.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Date Field Assertion"><include name="Contact Birthdate- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Label Assertion"><include name="Leads Labels- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Lookup Field Assertion"><include name="Account view Lookup.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/MultiSelect Assertion"><include name="Opportunity TestMulti- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Picklist Assertion"><include name="Contact Picklist- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/Rich Text Area Assertion"><include name="Case TestMultiText - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/02 - Classic Console/Standard/View/UI-Assertions/URL Field Assertion"><include name="Case URL- UI Assert.testcase"/></fileset>
+				<emailProperties sendEmail="true" primaryRecipients="ravindra.yadav@provartesting.com" ccRecipients="" bccRecipients="" emailSubject="Prerelease Classic Console: Provar test run report" attachExecutionReport="true" attachZip="false"/>
+				<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+			</Run-Test-Case>
+		
+		</target>
+	
+	<target name="lightningSales">
+				<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+			
+				<Run-Test-Case provarHome="${provar.home}" 
+						projectPath="${testproject.home}" 
+						resultsPath="${testproject.results}" 
+						resultsPathDisposition="Increment" 
+						testEnvironment="${envr}" 
+						webBrowser="${browser}"
+						webBrowserConfiguration="Full Screen"
+						webBrowserProviderName="Desktop"
+						webBrowserDeviceName="Full Screen" 
+						excludeCallableTestCases="true" 
+						salesforceMetadataCache="Reuse" 
+						projectCachePath="../../.provarCaches"
+						testOutputlevel="WARNING" 
+						pluginOutputlevel="WARNING"
+						stopTestRunOnError="false"
+						secretsPassword="${secrets.password}"
+						testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+						invokeTestRunMonitor="true"
+						>
+					<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Error Assertions"><include name="Case Page &amp; Field Errors.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Label Assertions"><include name="Account Edit Label Assertion.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Set Interactions"><include name="Edit_Contact.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Opportunity Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/New/Error Assertions"><include name="Contact New Page &amp; Field Errors.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/New/Label Assertions"><include name="Case New Label &amp; Button Assertion.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/New/Set Interactions"><include name="Lead New.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Accounts/Set"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Cases/UiAssert"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Contact/Set"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Accounts"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Activity_History"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Notes&amp;Attachments"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Campaign_history"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Assertions"><include name="Contact View Buttons - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Accounts View Buttons Action"><include name="Account View View Website Button-REG-5241.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Cases View Buttons Action"><include name="Case View Change Owner Button.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Contacts View Buttons Action"><include name="Contact View Submit For Approval.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Leads View Buttons Action"><include name="Lead View Delete Button.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Buttons/Clicks/Opportunity View Buttons Action"><include name="Opportunity View Edit Button.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Accounts Custom Link Actions"><include name="Accounts CLA Test Link-REG-5241.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Contacts Custom Link Actions"><include name="Contacts CLA Google Maps-REG-5241.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Actions/Leads Custom Link Actions"><include name="Leads CLA Google Search-REG-5241.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/CustomLinks/Custom Link Assertions"><include name="Lead View Custom Links Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Address Fields"><include name="Account View Address field.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Checkbox"><include name="Case View Checkbox.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Currency Field"><include name="Account View Currency.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/DateField"><include name="Case View Date.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Long Text Area"><include name="Case View Long Text.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Contact"></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/MultiPicklist"><include name="Opp View Multi Picklist.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Number Fields"><include name="Case View Number.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Percentage Field"><include name="Case View Percentage.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Picklist"><include name="Contact View Picklist.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Text fields"><include name="Lead View Text field.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/URL Fields"><include name="Lead View URL.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Label Assertion"><include name="Leads Labels- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Address Field Assertion"><include name="Account view address field.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Checkbox Assertion"><include name="Case View Checkbox.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Date Field Assertion"><include name="Contact Birthdate- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Label Assertion"><include name="Opportunity Lables - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Lookup Filed Assertion"><include name="Case View Lookup field.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/MultiSelect Assertion"><include name="Opportunity TestMulti- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Picklist Assertion"><include name="Leads Picklist- UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/Rich Text Area Assertion"><include name="Case TestMultiText - UI Assert.testcase"/></fileset><fileset dir="../tests/Regression/03 - Lightning Sales/View/Value Assertions/URL Field Assertion"><include name="Account URL- UI Assert.testcase"/></fileset>
+
+					<fileset dir="../tests/Regression/06 - VisualForce/AccountInsideVF"></fileset>
+					
+					<fileset dir="../tests/Regression/06 - VisualForce/ContactInsideVF">
+						<include name="Contact_Inside_VF_03_Embedded_VF_NestedTable.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/IframeInsideIframe">
+						<include name="IframeInsideIframe_01_UI.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/IframeInsideIframe">
+						<include name="IframeInsideIframe_04_NestedTable.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/IframeInsideVF">
+						<include name="01_IframeInsideVF.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/IframeInsideVF">
+						<include name="IframeInsideVF_05_PageBlockTable.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/NewCaseVFTab"></fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/TestProvar"></fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VFInsideVF">
+						<include name="VFInsideVF_01_Create_Case.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VFInsideVF">
+						<include name="VFInsideVF_03_DataTable.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VFOnly">
+						<include name="01_Create Case.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VFOnly">
+						<include name="03_HTMLTable VFonly.testcase"/>
+					</fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VFPdf"></fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VF_Community"></fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VF_LightningHTML"></fileset>
+					<fileset dir="../tests/Regression/06 - VisualForce/VF_TableScrollbar"></fileset><emailProperties sendEmail="true" primaryRecipients="ravindra.yadav@provartesting.com" ccRecipients="" bccRecipients="" emailSubject="Prerelease Lightning Sales: Provar test run report" attachExecutionReport="true" attachZip="false"/>
+					<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+				</Run-Test-Case>
+			
+			</target>
+	
+	<target name="lightningConsole">
+					<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+				
+					<Run-Test-Case provarHome="${provar.home}" 
+							projectPath="${testproject.home}" 
+							resultsPath="${testproject.results}" 
+							resultsPathDisposition="Increment" 
+							testEnvironment="${envr}" 
+							webBrowser="${browser}"
+							webBrowserConfiguration="Full Screen"
+							webBrowserProviderName="Desktop"
+							webBrowserDeviceName="Full Screen" 
+							excludeCallableTestCases="true" 
+							salesforceMetadataCache="Reuse" 
+							projectCachePath="../../.provarCaches"
+							testOutputlevel="WARNING" 
+							pluginOutputlevel="WARNING"
+							stopTestRunOnError="false"
+							secretsPassword="${secrets.password}"
+							testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+							invokeTestRunMonitor="true"
+							>
+						<fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion"><include name="Account Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion"><include name="Contact Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Edit Value and Label Assertion"><include name="Opportunity Edit Field Assertion.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Update Record and Page Error"><include name="Edit Record - Cases.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Edit/Update Record and Page Error"><include name="Edit Record - Leads.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Accounts"><include name="Assertions on All Account LV - REG-5284.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Cases"><include name="Assertion and Buttons on PN1 LV- REG-5284.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Contacts"><include name="Buttons on All Contacts LV.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/List Views/Opportunities"><include name="Assertion on Opp Home LV.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Navigations"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Assertions and Actions - Buttons and Labels"><include name="Account.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Assertions and Actions - Buttons and Labels"><include name="Contact.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Assertions and Actions - Buttons and Labels"><include name="Opportunity.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion"><include name="Case.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/New/Create and Page Error Assertion"><include name="Lead.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Quick Actions/Accounts"><include name="Accounts Email QA.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Quick Actions/Contacts"><include name="Contacts New Event QA.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Quick Actions/Opportunities"><include name="Opportunities New Task QA.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Accounts"><include name="AccountsSetValue.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Cases"><include name="CasesChangeRecordType.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/RecordType/Contact"><include name="ContactsSetValue.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Accounts/Opportunities"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Cases/Cases_RL_Related_Cases"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Contacts/Contact_RL_File"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Leads/Lead_Lead_History"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/Related Lists/Opportunity/Search Phrase"></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Accounts View Buttons Action"><include name="Account View Enable As Partner Button.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Cases View Buttons Action"><include name="Case View Change Owner Button and Symbol.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Contacts View Buttons Action"><include name="Contact View Clone Button.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Leads View Buttons Action"><include name="Lead View Delete Button.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Buttons/Opportunity View Buttons Action"><include name="Opportunity View Edit Button.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Inline Edit"><include name="Account_InlineEdit_and_ValueAssertion.testcase"/></fileset><fileset dir="../tests/Regression/04 - Lightning Console/Standard/View/Label Assertion"><include name="Contact Label- UI Assert.testcase"/></fileset>
+						<emailProperties sendEmail="true" primaryRecipients="ravindra.yadav@provartesting.com" ccRecipients="" bccRecipients="" emailSubject="Prerelease Lightning Console: Provar test run report" attachExecutionReport="true" attachZip="false"/>
+						<attachmentProperties includeAllFailuresInSummary="true" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+					</Run-Test-Case>
+				
+				</target>
+	
+</project>

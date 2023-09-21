@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testCase failureBehaviour="Continue" guid="812d34ac-58cd-4643-8fa6-f055eb704cd9" id="18">
+  <summary/>
+  <steps>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.WebConnect" guid="79be08a5-7ba2-43c8-a6fc-176ef26ff3ac" name="WebConnect" testItemId="1" title="Web Connect: WebServiceConnection">
+      <arguments>
+        <argument id="connectionName">
+          <value class="value" valueClass="string">SoapConnection</value>
+        </argument>
+        <argument id="resultName">
+          <value class="value" valueClass="string">WebServiceConnection</value>
+        </argument>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" guid="84aa21ac-6908-48d8-9d4e-8a1d298e6874" name="AssertValues" testItemId="5" title="Assert: {WebServiceConnection.status} EqualTo Open">
+      <tags>
+        <string>disabled</string>
+      </tags>
+      <arguments>
+        <argument id="expectedValue">
+          <value class="variable">
+            <path element="WebServiceConnection"/>
+            <path element="status"/>
+          </value>
+        </argument>
+        <argument id="actualValue">
+          <value class="value" valueClass="string">Open</value>
+        </argument>
+        <argument id="comparisonType">
+          <value class="value" valueClass="string">EqualTo</value>
+        </argument>
+        <argument id="caseSensitive">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="numeric">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="retainDecimals">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="nullGreater">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchMultiLine">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchDotAll">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="failureMessage">
+          <value class="value" valueClass="string">Connection is not open</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.SoapRequest" guid="d4f5beab-7284-4dba-a6c2-232980fbb52d" name="SoapRequest" testItemId="2" title="Web Service Request (SOAP): GetAllCrossRatesForACurrency⇒WebResponse">
+      <arguments>
+        <argument id="connectionName">
+          <value class="value" valueClass="string">WebServiceConnection</value>
+        </argument>
+        <argument id="wsdlLocation">
+          <value class="url">templates/xcurrencies.xml</value>
+        </argument>
+        <argument id="service">
+          <value class="value" valueClass="string">XigniteCurrencies</value>
+        </argument>
+        <argument id="port">
+          <value class="value" valueClass="string">XigniteCurrenciesSoap</value>
+        </argument>
+        <argument id="operation">
+          <value class="value" valueClass="string">GetAllCrossRatesForACurrency</value>
+        </argument>
+        <argument id="tnsPrefix">
+          <value class="value" valueClass="string">tns</value>
+        </argument>
+        <argument id="requestBody">
+          <value class="value" valueClass="string">&lt;ns1:GetAllCrossRatesForACurrency xmlns:ns1='http://www.xignite.com/services/'&gt;\n\n      &lt;ns1:Symbol&gt;$&lt;/ns1:Symbol&gt;\n    &lt;/ns1:GetAllCrossRatesForACurrency&gt;</value>
+        </argument>
+        <argument id="resultName">
+          <value class="value" valueClass="string">WebResponse</value>
+        </argument>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="statusResultName">
+          <value class="value" valueClass="string">SoapResponseStatus</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" guid="3cf14636-6428-40be-a178-7bc72b62af38" name="AssertValues" testItemId="4" title="Assert: {SoapResponseStatus.StatusCode} EqualTo 200">
+      <arguments>
+        <argument id="expectedValue">
+          <value class="variable">
+            <path element="SoapResponseStatus"/>
+            <path element="StatusCode"/>
+          </value>
+        </argument>
+        <argument id="actualValue">
+          <value class="value" valueClass="string">200</value>
+        </argument>
+        <argument id="comparisonType">
+          <value class="value" valueClass="string">EqualTo</value>
+        </argument>
+        <argument id="caseSensitive">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="numeric">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="retainDecimals">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="nullGreater">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchMultiLine">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchDotAll">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="failureMessage">
+          <value class="value" valueClass="string">Response Message fails</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" guid="a3394c23-705f-41c8-80fb-cada39eff914" name="AssertValues" testItemId="3" title="Assert: {SoapResponseStatus.ResponseMessage} EqualTo OK">
+      <arguments>
+        <argument id="expectedValue">
+          <value class="variable">
+            <path element="SoapResponseStatus"/>
+            <path element="ResponseMessage"/>
+          </value>
+        </argument>
+        <argument id="actualValue">
+          <value class="value" valueClass="string">OK</value>
+        </argument>
+        <argument id="comparisonType">
+          <value class="value" valueClass="string">EqualTo</value>
+        </argument>
+        <argument id="caseSensitive">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="numeric">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="retainDecimals">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="nullGreater">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchMultiLine">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchDotAll">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="failureMessage">
+          <value class="value" valueClass="string">Response Message fails</value>
+        </argument>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.AssertValues" guid="3ee44a64-bae9-4cf0-b80c-04c17f3ccae8" name="AssertValues" testItemId="6" title="Assert: {WebResponse.GetAllCrossRatesForACurrencyResult.From.Symbol} EqualTo USD">
+      <arguments>
+        <argument id="expectedValue">
+          <value class="variable">
+            <path element="WebResponse"/>
+            <path element="GetAllCrossRatesForACurrencyResult"/>
+            <path element="From"/>
+            <path element="Symbol"/>
+          </value>
+        </argument>
+        <argument id="actualValue">
+          <value class="value" valueClass="string">USD</value>
+        </argument>
+        <argument id="comparisonType">
+          <value class="value" valueClass="string">EqualTo</value>
+        </argument>
+        <argument id="caseSensitive">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="numeric">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="retainDecimals">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="nullGreater">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchMultiLine">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="matchDotAll">
+          <value class="value" valueClass="boolean">false</value>
+        </argument>
+        <argument id="failureMessage"/>
+      </arguments>
+    </apiCall>
+  </steps>
+</testCase>

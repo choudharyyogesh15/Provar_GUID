@@ -1,0 +1,81 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="C:/Program Files/Provar/"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_LightningSales/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+				testEnvironment="" 
+				webBrowser="${browser}" 
+				webBrowserConfiguration="Full Screen" 
+				excludeCallableTestCases="true" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches" 
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				invokeTestRunMonitor="true"
+				>
+		
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Label Assertions"><include name="Account Edit Label Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Set Interactions"><include name="Edit_Account.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Edit/Value Assertions"><include name="Account Edit Field Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Knowledge Article"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/List Views/Cases"><include name="Assertion &amp; Buttons on PN1 LV-REG-5284.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/New/Label Assertions"><include name="Account New Label &amp; Button Assertion.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/New/Set Interactions"><include name="Account New.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/RecordType/Cases"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Accounts"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Assets"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Contracts"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/CustomObjs"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Files"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Accounts/Orders"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_ApprovalHistory"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Contact_Roles"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Files"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Cases/Cases_RL_Related_Cases"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contacts_RL_Quotes"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_Account"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Contacts/Contact_RL_File"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Ad_Groups"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Files"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Google Campaign"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Keywords"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Lead_History"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Notes &amp; Attachments"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Search_Phrases"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Leads/Leads_RL_Text_ads"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/AdGroups"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Files"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Google Campaign"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Invoice_Statements"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Keyword"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/Search Phrase"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/Related Lists/Opportunity/TextAds"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Currency Field"></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit"><include name="Custom_DateTime_Field_CustomObject.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Account"><include name="Account1_lookup.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Account"><include name="Account2_lookup.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/Lookups/Account"><include name="Contact_lookup.testcase"/></fileset>
+			<fileset dir="../tests/Regression/03 - Lightning Sales/View/Inline Edit/MultiPicklist"><include name="Opp View Multi Picklist.testcase"/></fileset>
+
+
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" ccRecipients="" bccRecipients="" emailSubject="Automation Revamp : Lightning Sales - Regmain Incompatible" attachExecutionReport="true" attachZip="true"/>
+						<attachmentProperties includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="false" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+					</Run-Test-Case>
+
+	</target>
+</project>

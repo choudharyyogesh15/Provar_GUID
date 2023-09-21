@@ -1,0 +1,360 @@
+<project default="runtests">
+	<property environment="env"/>
+	<property name="provar.home" value="${env.PROVAR_HOME}"/>
+	<property name="testproject.home" value=".."/>
+	<property name="testproject.results" value="../ANT_Prerelease/${env.JOB_NAME}/${env.BUILD_NUMBER}"/>
+	<property name="secrets.password" value="${env.ProvarSecretsPassword}"/>
+	<property name="testenvironment.secretspassword" value="${env.ProvarSecretsPassword_EnvName}"/>
+	<loadfile property="emaillist" srcfile="..\templates\emaillist"/>
+	
+	<taskdef name="Provar-Compile" classname="com.provar.testrunner.ant.CompileTask" classpath="${provar.home}/ant/ant-provar.jar"/>
+	<taskdef name="Run-Test-Case" classname="com.provar.testrunner.ant.RunnerTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	<taskdef name="Test-Cycle-Report" classname="com.provar.testrunner.ant.TestCycleReportTask" classpath="${provar.home}/ant/ant-provar.jar;${provar.home}/ant/ant-provar-bundled.jar;${provar.home}/ant/ant-provar-sf.jar"/>
+	
+	<target name="runtests">
+	
+		<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+	
+		<Run-Test-Case provarHome="${provar.home}" 
+				projectPath="${testproject.home}" 
+				resultsPath="${testproject.results}" 
+				resultsPathDisposition="Increment" 
+			testEnvironment="Prerelease-Classic" 
+							webBrowser="Chrome" 
+							webBrowserConfiguration="Full Screen"
+							webBrowserProviderName="Desktop"
+							webBrowserDeviceName="Full Screen" 
+				excludeCallableTestCases="false" 
+				salesforceMetadataCache="Reload" 
+				projectCachePath="../../.provarCaches"
+				testOutputlevel="WARNING" 
+				pluginOutputlevel="WARNING"
+				stopTestRunOnError="false"
+				secretsPassword="${secrets.password}"
+				testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+				invokeTestRunMonitor="true"
+				>
+
+		
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Field UI-Assertions">
+				<include name="Case Edit Field Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+			<include name="Account Edit Label Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+			<include name="Case Edit Label Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+			<include name="Leads Edit Label Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+			<include name="Opportunity Edit Label Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Page and Field Error Assertions">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Update_Record">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/New">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+			<include name="AccountTeam_Buttons_ViewAll_Screen.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+			<include name="AccountTeam_ColumnAssertion_ViewAllScreen - REG-5376 .testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+			<include name="AccountTeam_EditAndDelete_Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Cases">
+			<include name="Case_ColumnAssertion&amp; Columm_Value_Assertion_ViewAllScreen - REG-4647.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Contracts">
+			<include name="Contracts_Edit_Screen&amp;Label_Assertions.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Contracts">
+			<include name="Contracts_NewScreen&amp;Label_Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Notes &amp; Attachments">
+			<include name="Notes &amp; Attachments_Column_Value_Assertion&amp;Column_Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+			<include name="Cases_RL_RelatedCases_Extra_Buttons.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+			<include name="Cases_RL_RelatedCases_ViewAll_Value &amp; Column Assertions - REG-4647.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contacts_RL_Notes&amp;Attachments">
+			<include name="Contacts_RL_Notes&amp;Attachments_Value&amp;ColumnAssertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contact_RL_Cases">
+			<include name="Contact_RL_Case_Values&amp;Column_Assertion_ViewAll PRO-7100.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contact_RL_File">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Leads/Leads_RL_Notes &amp; Attachments">
+			<include name="Leads_RL_Notes &amp; Attachments_Value &amp; Column Assertions.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Opportunity/Notes &amp; Attachments">
+			<include name="Opportunity_RL_Notes&amp;Attachments_Column&amp;Values_Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+			<include name="Account View Buttons - UI Assert.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+			<include name="Contact View Buttons - UI Assert.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+			<include name="Lead View Buttons - UI Assert.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+			<include name="Opportunity View Buttons - UI Assert.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Accounts View Buttons Action">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+			<include name="Case View Change Owner Symbol.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+			<include name="Case View Clone Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+			<include name="Case View Delete Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+			<include name="Case View Edit Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+			<include name="Contact View Change Owner Symbol.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+			<include name="Contact View Clone Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+			<include name="Contact View Delete Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+			<include name="Contact View Edit Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Leads View Buttons Action">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Opportunity View Buttons Action">
+			<include name="Opportunity View Delete Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Opportunity View Buttons Action">
+			<include name="Opportunity View Edit Button.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Lookups/Contact">
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Date Field Assertion">
+			<include name="Opportunity view close date.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Label Assertion">
+			<include name="Account Label- UI Assert.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+			<include name="01_IframeInsideVF_PRO-6659.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+			<include name="03_Iframe_inside_Vf_HTMLTable_Assertion.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+			<include name="VFInsideVF_01_Create_Case_PRO-6659.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+			<include name="VFInsideVF_02_UI_Assertions_PRO-10817.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+			<include name="01_Create Case_PRO-6659.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+			<include name="03_HTMLTable VFonly.testcase"/>
+			</fileset>
+			<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_Community">
+			</fileset>
+			
+			
+			<emailProperties sendEmail="true" primaryRecipients="${emaillist}" 
+			ccRecipients="" bccRecipients="" emailSubject="Prerelease Classic Sales Provar test run report" attachExecutionReport="true" attachZip="true"/>
+			<attachmentProperties includeAllFailuresInSummary="false" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+		
+		</Run-Test-Case>
+
+	</target>
+
+
+
+
+
+	<target name="LogOnAs">
+		
+			<Provar-Compile provarHome="${provar.home}" projectPath="${testproject.home}"/>
+		
+			<Run-Test-Case provarHome="${provar.home}" 
+					projectPath="${testproject.home}" 
+					resultsPath="${testproject.results}" 
+					resultsPathDisposition="Increment" 
+				testEnvironment="LogOnAs_PreReleaseLightning" 
+								webBrowser="Chrome" 
+								webBrowserConfiguration="Full Screen"
+								webBrowserProviderName="Desktop"
+								webBrowserDeviceName="Full Screen" 
+					excludeCallableTestCases="false" 
+					salesforceMetadataCache="Reload" 
+					projectCachePath="../../.provarCaches"
+					testOutputlevel="WARNING" 
+					pluginOutputlevel="WARNING"
+					stopTestRunOnError="false"
+					secretsPassword="${secrets.password}"
+					testEnvironmentSecretsPassword="${testenvironment.secretspassword}"
+					invokeTestRunMonitor="true"
+					>
+
+			
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Field UI-Assertions">
+					<include name="Case Edit Field Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+				<include name="Account Edit Label Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+				<include name="Case Edit Label Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+				<include name="Leads Edit Label Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Label and Button Assertion">
+				<include name="Opportunity Edit Label Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Page and Field Error Assertions">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Edit/Update_Record">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/New">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+				<include name="AccountTeam_Buttons_ViewAll_Screen.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+				<include name="AccountTeam_ColumnAssertion_ViewAllScreen - REG-5376 .testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/AccountTeam">
+				<include name="AccountTeam_EditAndDelete_Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Cases">
+				<include name="Case_ColumnAssertion&amp; Columm_Value_Assertion_ViewAllScreen - REG-4647.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Contracts">
+				<include name="Contracts_Edit_Screen&amp;Label_Assertions.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Contracts">
+				<include name="Contracts_NewScreen&amp;Label_Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Accounts/Notes &amp; Attachments">
+				<include name="Notes &amp; Attachments_Column_Value_Assertion&amp;Column_Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+				<include name="Cases_RL_RelatedCases_Extra_Buttons.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Cases/Cases_RL_Related_Cases">
+				<include name="Cases_RL_RelatedCases_ViewAll_Value &amp; Column Assertions - REG-4647.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contacts_RL_Notes&amp;Attachments">
+				<include name="Contacts_RL_Notes&amp;Attachments_Value&amp;ColumnAssertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contact_RL_Cases">
+				<include name="Contact_RL_Case_Values&amp;Column_Assertion_ViewAll PRO-7100.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Contacts/Contact_RL_File">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Leads/Leads_RL_Notes &amp; Attachments">
+				<include name="Leads_RL_Notes &amp; Attachments_Value &amp; Column Assertions.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/Related Lists/Opportunity/Notes &amp; Attachments">
+				<include name="Opportunity_RL_Notes&amp;Attachments_Column&amp;Values_Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+				<include name="Account View Buttons - UI Assert.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+				<include name="Contact View Buttons - UI Assert.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+				<include name="Lead View Buttons - UI Assert.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Assertions">
+				<include name="Opportunity View Buttons - UI Assert.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Accounts View Buttons Action">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+				<include name="Case View Change Owner Symbol.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+				<include name="Case View Clone Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+				<include name="Case View Delete Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Cases View Buttons Action">
+				<include name="Case View Edit Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+				<include name="Contact View Change Owner Symbol.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+				<include name="Contact View Clone Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+				<include name="Contact View Delete Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Contacts View Buttons Action">
+				<include name="Contact View Edit Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Leads View Buttons Action">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Opportunity View Buttons Action">
+				<include name="Opportunity View Delete Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Buttons/Clicks/Opportunity View Buttons Action">
+				<include name="Opportunity View Edit Button.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/Inline Edit/Lookups/Contact">
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Date Field Assertion">
+				<include name="Opportunity view close date.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/View/UI-Assertions/Label Assertion">
+				<include name="Account Label- UI Assert.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+				<include name="01_IframeInsideVF_PRO-6659.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/IframeInsideVF">
+				<include name="03_Iframe_inside_Vf_HTMLTable_Assertion.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+				<include name="VFInsideVF_01_Create_Case_PRO-6659.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFInsideVF">
+				<include name="VFInsideVF_02_UI_Assertions_PRO-10817.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+				<include name="01_Create Case_PRO-6659.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VFOnly">
+				<include name="03_HTMLTable VFonly.testcase"/>
+				</fileset>
+				<fileset dir="../tests/Regression/01 - Classic Sales/Standard/VisualForce/VF_Community">
+				</fileset>
+				
+				
+				<emailProperties sendEmail="true" primaryRecipients="${emaillist}" 
+				ccRecipients="" bccRecipients="" emailSubject="LogOnAs Prerelease Classic Sales Provar test run report" attachExecutionReport="true" attachZip="true"/>
+				<attachmentProperties includeAllFailuresInSummary="false" includeOnlyFailures="false" includeOnlyBdd="false" includeSkipped="true" includeTestCaseDescription="true" includeScreenshots="true" includeWarningMessages="true" includeInfoMessages="true" includeDebugMessages="true" includeTestStepTime="true" includeTestStepPathHierarchy="true" includeFullScreenShot="true"/>
+			
+			</Run-Test-Case>
+
+		</target>
+
+</project>
